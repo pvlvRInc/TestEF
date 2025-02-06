@@ -17,7 +17,7 @@ public static class UserExtension
             Email        = user.Email,
             HashPassword = user.HashPassword
         };
-    
+
     public static User FromDTO(this UserModel user) =>
         new()
         {
@@ -29,4 +29,15 @@ public static class UserExtension
             Email        = user.Email,
             HashPassword = user.HashPassword
         };
+
+    public static User UpdateFromDTO(this User user, UserModel model)
+    {
+        user.UpdatedAt    = DateTime.UtcNow;
+        user.FirstName    = model.FirstName;
+        user.MiddleName   = model.MiddleName;
+        user.LastName     = model.LastName;
+        user.Email        = model.Email;
+        user.HashPassword = model.HashPassword;
+        return user;
+    }
 }

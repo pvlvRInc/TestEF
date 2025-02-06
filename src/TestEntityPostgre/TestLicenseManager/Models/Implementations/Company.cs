@@ -10,5 +10,5 @@ public class Company : ModelBase
 
     public List<User> Users { get; set; }
 
-    public License License   { get; set; }
+    public License License { get; set; }
 }

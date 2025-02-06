@@ -1,6 +1,4 @@
-using Microsoft.EntityFrameworkCore;
 using TestLicenseManager.Extensions;
-using TestLicenseManager.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.RegisterAppDbContext();
+builder.RegisterServices();
 
 var app = builder.Build();
 

@@ -11,6 +11,7 @@ public class ApplicationDbContext : DbContext
 
     public ApplicationDbContext(DbContextOptions options) : base(options)
     {
-        Database.EnsureCreated();
+        // Database.Migrate();
+        // Database.EnsureCreated();
     }
 }

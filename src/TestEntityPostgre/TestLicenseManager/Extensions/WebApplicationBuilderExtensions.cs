@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TestLicenseManager.Controllers.Services;
 using TestLicenseManager.CQRS.Users.Handlers;
 using TestLicenseManager.CQRS.Users.Services;
 using TestLicenseManager.Models;
@@ -19,6 +20,7 @@ public static class WebApplicationBuilderExtensions
         // Регистрация CommandService и QueryService
         builder.Services.AddScoped<UserCommandService>();
         builder.Services.AddScoped<UserQueryService>();
+        builder.Services.AddScoped<AccountService>();
 
         // Регистрация хэндлеров команд
         builder.Services.AddTransient<CreateUserCommandHandler>();

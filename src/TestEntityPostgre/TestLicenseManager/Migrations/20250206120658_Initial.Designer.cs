@@ -12,8 +12,8 @@ using TestLicenseManager.Models;
 namespace TestLicenseManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250205123555_initial")]
-    partial class initial
+    [Migration("20250206120658_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -159,6 +159,12 @@ namespace TestLicenseManager.Migrations
                     b.Property<string>("MiddleName")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Rolesasgasg")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");

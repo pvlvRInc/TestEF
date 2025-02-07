@@ -15,6 +15,7 @@ public static class UserExtension
             MiddleName   = user.MiddleName,
             LastName     = user.LastName,
             Email        = user.Email,
+            Role         = user.Role,
             HashPassword = user.HashPassword
         };
 
@@ -24,6 +25,7 @@ public static class UserExtension
             CreatedAt    = DateTime.UtcNow,
             UpdatedAt    = DateTime.UtcNow,
             FirstName    = user.FirstName,
+            Role         = user.Role,
             MiddleName   = user.MiddleName,
             LastName     = user.LastName,
             Email        = user.Email,
@@ -37,6 +39,7 @@ public static class UserExtension
         user.MiddleName   = model.MiddleName;
         user.LastName     = model.LastName;
         user.Email        = model.Email;
+        user.Role         = model.Role;
         user.HashPassword = model.HashPassword;
         return user;
     }

@@ -3,7 +3,7 @@ using TestLicenseManager.Controllers.Services;
 
 namespace TestLicenseManager.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/account")]
 [ApiController]
 public class AccountController : ControllerBase
 {

@@ -1,3 +1,4 @@
+using Library.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,7 @@ public class AuthenticatedTestController : ControllerBase
     public IActionResult GetName() => 
         Ok($"Login: {User.Identity.Name}");
     
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = RoleConstants.Admin)]
     [HttpGet("get_role")]
     public IActionResult GetAll() => 
         Ok($"Login: {User.Identity.Name} Role: Admin");

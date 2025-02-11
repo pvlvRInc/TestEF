@@ -1,5 +1,4 @@
 using Library.DTOs;
-using Library.Generators;
 using Microsoft.AspNetCore.Mvc;
 using TestLicenseManager.CQRS.Users.Commands;
 using TestLicenseManager.CQRS.Users.Handlers.Users.Queries;

@@ -13,6 +13,7 @@ public static class WebApplicationExtensions
         {
             if (context.WebSockets.IsWebSocketRequest)
             {
+                Console.WriteLine($"Socket connection requested");
                 WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
                 await new SocketEchoCommand(webSocket).Execute();
             }

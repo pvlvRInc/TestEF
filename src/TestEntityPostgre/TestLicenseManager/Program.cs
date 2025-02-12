@@ -23,7 +23,7 @@ builder.RegisterServices();
 
 var app = builder.Build();
 
-app.MapIdentityApi<IdentityUser>();
+app.UseWebCustomSockets();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -32,10 +32,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseWebCustomSockets();
 
 app.UseHttpsRedirection();
 
+app.MapIdentityApi<IdentityUser>();
 app.UseAuthorization();
 
 app.MapControllers();

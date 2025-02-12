@@ -9,23 +9,16 @@ public static class WebApplicationExtensions
     {
         app.UseWebSockets();
 
-        app.Use(async (context, next) =>
+        app.Map("/ws", async (HttpContext context) =>
         {
-            if (context.Request.Path == "/ws")
+            if (context.WebSockets.IsWebSocketRequest)
             {
-                if (context.WebSockets.IsWebSocketRequest)
-                {
-                    WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
-                    await new SocketEchoCommand(webSocket).Execute();
-                }
-                else
-                {
-                    context.Response.StatusCode = 400;
-                }
+                WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
+                await new SocketEchoCommand(webSocket).Execute();
             }
             else
             {
-                await next();
+                context.Response.StatusCode = 400;
             }
         });
     }

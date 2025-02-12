@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using TestLicenseManager.Controllers.Services;
 using TestLicenseManager.CQRS.Users.Handlers;
 using TestLicenseManager.CQRS.Users.Services;
@@ -30,5 +31,55 @@ public static class WebApplicationBuilderExtensions
         // Регистрация хэндлеров запросов
         builder.Services.AddTransient<GetUserQueryHandler>();
         builder.Services.AddTransient<GetAllUsersQuaryHandler>();
+    }
+    
+    public static void AddSwaggerDocWithAuth(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddSwaggerGen(options =>
+        {
+            options.SwaggerDoc("v1",
+                new OpenApiInfo
+                {
+                    Title          = "Demo License Manager",
+                    Description    = null,
+                    Version        = "v1",
+                    TermsOfService = null,
+                    Contact        = null,
+                    License        = null,
+                    Extensions     = null
+                });
+        
+            options.AddSecurityDefinition("Bearer",
+                new OpenApiSecurityScheme
+                {
+                    Type                = SecuritySchemeType.Http,
+                    Description         = "Enter JWT Bearer token",
+                    Name                = "Authorization",
+                    In                  = ParameterLocation.Header,
+                    Scheme              = "bearer",
+                    BearerFormat        = "JWT",
+                    Flows               = null,
+                    OpenIdConnectUrl    = null,
+                    Extensions          = null,
+                    UnresolvedReference = false,
+                    Reference           = null
+                });
+        
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference           = new OpenApiReference
+                        {
+                            ExternalResource = null,
+                            Type             = ReferenceType.SecurityScheme,
+                            Id               = "Bearer"
+                        }
+                    },
+                    []
+                }
+            });
+        });
     }
 }

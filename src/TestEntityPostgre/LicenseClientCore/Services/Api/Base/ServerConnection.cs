@@ -61,7 +61,7 @@ public class ServerConnection
         await Provide(() => _httpClient.Post<T>(api, payload, token, ConstructJwtAuthHeader()));
 
 
-    public async Task<(EResult Result, ServerCodeResponse Response, T ResultData)> Provide<T>(Func<Task<(EResult Result, HttpResponseMessage Response, T ResultData)>> request)
+    private async Task<(EResult Result, ServerCodeResponse Response, T ResultData)> Provide<T>(Func<Task<(EResult Result, HttpResponseMessage Response, T ResultData)>> request)
     {
         var requestResult = await request();
 

@@ -22,5 +22,7 @@ public class SocketEchoCommand : IDisposable
             result = await _socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
         }
         await _socket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
+        
+        Dispose();
     }
 }

@@ -49,7 +49,7 @@ jobs:
         uses: GabrielAcostaEngler/signtool-code-sign@main
         with:
           certificate: ${{ secrets.CERTIFICATE }}
-          cert-password: ${{ secrets.PASSWORD }}
+          cert-password: ${{ secrets.CERTIFICATE_PASSWORD }}
           cert-sha1: ${{ secrets.CERTHASH }}
           cert-description: 'My Application'
           folder: 'src/TestEntityPostgre/publish'

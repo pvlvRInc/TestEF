@@ -23,7 +23,7 @@ jobs:
 
       # Шаг 3: Восстановление зависимостей
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore src/TestEntityPostgre/TestLicenseManager.csproj
 
       # Шаг 4: Сборка проекта
       - name: Build project

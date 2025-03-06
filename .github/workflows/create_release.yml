@@ -45,14 +45,16 @@ jobs:
         run: dotnet publish --configuration Release --output publish --no-restore
 
       # Шаг 6: Подпись исполняемых файлов
-      - name: Code sign executables
-        uses: jerryall/windows-signtool-exe-code-sign-action@v2
+      - name: Sign executables
+        uses: GabrielAcostaEngler/signtool-code-sign@main
         with:
-          cert: ${{ secrets.CERTIFICATE }}
-          password: ${{ secrets.CERTIFICATE_PASSWORD }}
-          files: |
-            src/TestEntityPostgre/publish/*.exe
-            src/TestEntityPostgre/publish/*.dll
+          certificate: ${{ secrets.CERTIFICATE }}
+          cert-password: ${{ secrets.PASSWORD }}
+          cert-sha1: ${{ secrets.CERTHASH }}
+          cert-description: 'My Application'
+          folder: 'src/TestEntityPostgre/publish'
+          recursive: true
+          timestamp-server: 'http://timestamp.digicert.com'
 
       # Шаг 7: Архивация опубликованного результата в ZIP-файл
       - name: Archive publish directory

@@ -2,7 +2,6 @@ name: Release Build and Create Release
 
 on:
   workflow_dispatch:
-    - 'Release'
   push:
     branches:
       - 'master'

@@ -44,12 +44,22 @@ jobs:
         working-directory: src/TestEntityPostgre
         run: dotnet publish --configuration Release --output publish --no-restore
 
-      # Шаг 6: Архивация опубликованного результата в ZIP-файл
+      # Шаг 6: Подпись исполняемых файлов
+      - name: Code sign executables
+        uses: warrenbuckley/SignTool-Action@v1
+        with:
+          certificate: ${{ secrets.CERTIFICATE }}
+          password: ${{ secrets.CERTIFICATE_PASSWORD }}
+          files: |
+            src/TestEntityPostgre/publish/*.exe
+            src/TestEntityPostgre/publish/*.dll
+
+      # Шаг 7: Архивация опубликованного результата в ZIP-файл
       - name: Archive publish directory
         working-directory: src/TestEntityPostgre
         run: Compress-Archive -Path publish\* -DestinationPath release.zip
 
-      # Шаг 7: Создание релиза в GitHub
+      # Шаг 8: Создание релиза в GitHub
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
@@ -61,7 +71,7 @@ jobs:
           draft: false
           prerelease: false
 
-      # Шаг 8: Загрузка артефакта (ZIP-файла) в созданный релиз
+      # Шаг 9: Загрузка артефакта (ZIP-файла) в созданный релиз
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:

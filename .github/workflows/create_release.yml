@@ -2,9 +2,15 @@ name: Release Build and Create Release
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - 'master'
+    inputs:
+      tag:
+        description: 'Укажите тег для релиза (например, v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+  on:
+    push:
+      tags:
+        - 'v*'
 
 jobs:
   build-and-release:
@@ -44,8 +50,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{  github.event.inputs.tag || github.ref_name }}
+          release_name: Release ${{  github.event.inputs.tag || github.ref_name }}
           draft: false
           prerelease: false
 

@@ -5,7 +5,10 @@ on:
   push:
     branches:
       - 'master'
-
+      
+permissions:
+  contents: write
+  
 jobs:
   build-and-release:
     runs-on: windows-latest

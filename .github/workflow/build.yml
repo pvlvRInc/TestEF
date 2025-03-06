@@ -1,6 +1,8 @@
 name: Build Server
 
 on:
+  workflow_dispatch:
+    - 'Build'
   pull_request:
     branches:
       - '*'

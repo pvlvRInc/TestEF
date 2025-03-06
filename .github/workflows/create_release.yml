@@ -23,18 +23,22 @@ jobs:
 
       # Шаг 3: Восстановление зависимостей
       - name: Restore dependencies
-        run: dotnet restore src/TestEntityPostgre/TestLicenseManager.csproj
+        working-directory: src/TestEntityPostgre
+        run: dotnet restore
 
       # Шаг 4: Сборка проекта
       - name: Build project
+        working-directory: src/TestEntityPostgre
         run: dotnet build --configuration Release --no-restore
 
       # Шаг 5: Публикация проекта в папку "publish"
       - name: Publish project
+        working-directory: src/TestEntityPostgre
         run: dotnet publish --configuration Release --output publish --no-restore
 
       # Шаг 6: Архивация опубликованного результата в ZIP-файл
       - name: Archive publish directory
+        working-directory: src/TestEntityPostgre
         run: Compress-Archive -Path publish\* -DestinationPath release.zip
 
       # Шаг 7: Создание релиза в GitHub

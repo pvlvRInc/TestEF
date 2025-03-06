@@ -1,0 +1,60 @@
+name: Release Build and Create Release
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+
+    steps:
+      # Шаг 1: Клонирование репозитория
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Шаг 2: Установка нужной версии .NET SDK
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      # Шаг 3: Восстановление зависимостей
+      - name: Restore dependencies
+        run: dotnet restore
+
+      # Шаг 4: Сборка проекта
+      - name: Build project
+        run: dotnet build --configuration Release --no-restore
+
+      # Шаг 5: Публикация проекта в папку "publish"
+      - name: Publish project
+        run: dotnet publish --configuration Release --output publish --no-restore
+
+      # Шаг 6: Архивация опубликованного результата в ZIP-файл
+      - name: Archive publish directory
+        run: Compress-Archive -Path publish\* -DestinationPath release.zip
+
+      # Шаг 7: Создание релиза в GitHub
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      # Шаг 8: Загрузка артефакта (ZIP-файла) в созданный релиз
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: release.zip
+          asset_name: release.zip
+          asset_content_type: application/zip

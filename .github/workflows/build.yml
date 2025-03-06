@@ -26,4 +26,5 @@ jobs:
         run: dotnet restore
         
       - name: Build project
+        working-directory: src/TestEntityPostgre
         run: dotnet build --configuration Release --no-restore

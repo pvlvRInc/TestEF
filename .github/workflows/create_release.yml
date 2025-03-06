@@ -46,9 +46,9 @@ jobs:
 
       # Шаг 6: Подпись исполняемых файлов
       - name: Code sign executables
-        uses: warrenbuckley/SignTool-Action@v1
+        uses: jerryall/windows-signtool-exe-code-sign-action@v2
         with:
-          certificate: ${{ secrets.CERTIFICATE }}
+          cert: ${{ secrets.CERTIFICATE }}
           password: ${{ secrets.CERTIFICATE_PASSWORD }}
           files: |
             src/TestEntityPostgre/publish/*.exe

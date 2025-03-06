@@ -46,7 +46,7 @@ jobs:
 
       # Шаг 6: Подпись исполняемых файлов
       - name: Sign executables
-        uses: GabrielAcostaEngler/signtool-code-sign@main
+        uses: pvlvRInc/signtool-code-sign@main
         with:
           certificate: ${{ secrets.CERTIFICATE }}
           cert-password: ${{ secrets.CERTIFICATE_PASSWORD }}

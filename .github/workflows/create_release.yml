@@ -51,7 +51,6 @@ jobs:
           certificate: ${{ secrets.CERTIFICATE }}
           cert-password: ${{ secrets.CERTIFICATE_PASSWORD }}
           cert-sha1: ${{ secrets.CERTHASH }}
-          cert-description: 'My Application'
           folder: 'src/TestEntityPostgre/publish'
           recursive: true
           timestamp-server: 'http://timestamp.digicert.com'

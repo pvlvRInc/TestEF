@@ -22,7 +22,8 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore TestEF/src/TestEntityPostgre/TestLicenseManager.csproj
+        working-directory: src/TestEntityPostgre
+        run: dotnet restore
         
       - name: Build project
         run: dotnet build --configuration Release --no-restore
